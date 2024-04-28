@@ -1,0 +1,14 @@
+services:
+  ubuntu:
+    container_name: ubuntu
+    image: ubuntu-ssh
+    hostname: ubuntu
+    volumes:
+      - ./logs:/home/ubuntu/logs
+      - ./config:/home/ubuntu/config
+      - ~/.ssh/id_rsa.pub:/home/ubuntu/ssh_key
+    ports:
+      - 2222:22
+      - 9092:9092
+      - 9093:9093
+      - 8083:8083

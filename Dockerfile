@@ -20,13 +20,16 @@ RUN wget https://downloads.apache.org/kafka/3.7.0/kafka_2.13-3.7.0.tgz -O /home/
 RUN mkdir -p /home/ubuntu/kafka
 RUN tar -xvzf /home/ubuntu/kafka.tgz -C /home/ubuntu/kafka --strip-components 1
 ADD kafka/config /home/ubuntu/kafka/config
-ADD kafka/plugins /home/ubuntu/kafka/plugins
+
+RUN mkdir -p /home/ubuntu/kafka/plugins
+RUN wget https://repo1.maven.org/maven2/org/mongodb/kafka/mongo-kafka-connect/1.11.2/mongo-kafka-connect-1.11.2-all.jar -O /home/ubuntu/kafka/plugins/mongo-kafka-connect-1.11.2-all.jar
+
 ADD init.sh /home/ubuntu/init.sh
+RUN chmod +x /home/ubuntu/init.sh
 
 RUN mkdir -p /home/ubuntu/logs
 RUN mkdir -p /home/ubuntu/config
 RUN chown -R ubuntu:ubuntu /home/ubuntu
-RUN chmod +x /home/ubuntu/init.sh
 
 RUN echo 'ListenAddress 0.0.0.0' | tee -a /etc/ssh/sshd_config
 
